@@ -1,10 +1,10 @@
 const db = require('../db');
 
 const User = {
-  create: (username, nome, email, matricula, role, token) => {
+  create: (nome, email, matricula, role, token) => {
     return new Promise((resolve, reject) => {
-      const query = 'INSERT INTO users (username, nome, email, matricula, role, token) VALUES (?, ?, ?, ?, ?, ?)';
-      db.query(query, [username, nome, email, matricula, role, token], (error, results) => {
+      const query = 'INSERT INTO users (nome, email, matricula, role, token) VALUES (?, ?, ?, ?, ?)';
+      db.query(query, [nome, email, matricula, role, token], (error, results) => {
         if (error) {
           reject(error);
         } else {
@@ -13,10 +13,10 @@ const User = {
       });
     });
   },
-  get: (id) => {
+  get: (matricula) => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT * FROM users WHERE id = ?';
-      db.query(query, [id], (error, results) => {
+      const query = 'SELECT * FROM users WHERE matricula = ?';
+      db.query(query, [matricula], (error, results) => {
         if (error) {
           reject(error);
         } else {
@@ -25,10 +25,10 @@ const User = {
       });
     });
   },
-  exists: (id) => {
+  exists: (matricula) => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT count(*) as count FROM users WHERE id = ?';
-      db.query(query, [id], (error, results) => {
+      const query = 'SELECT count(*) as count FROM users WHERE matricula = ?';
+      db.query(query, [matricula], (error, results) => {
         if (error) {
           reject(error);
         } else {
@@ -37,22 +37,34 @@ const User = {
       });
     });
   },
-  findByUsername: (username) => {
+  findByMatricula: (matricula) => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT id FROM users WHERE username = ?';
-      db.query(query, [username], (error, results) => {
+      const query = 'SELECT matricula FROM users WHERE matricula = ?';
+      db.query(query, [matricula], (error, results) => {
         if (error) {
           reject(error);
         } else {
-          resolve(results[0] ? results[0].id : null);
+          resolve(results[0] ? results[0].matricula : null);
         }
       });
     });
   },
-  update: (id, nome, email, matricula, role, token) => {
+  update: (nome, email, matricula, token) => {
     return new Promise((resolve, reject) => {
-      const query = 'UPDATE users SET nome = ?, email = ?, matricula = ?, role = ?, token = ? WHERE id = ?';
-      db.query(query, [nome, email, matricula, role, token, id], (error, results) => {
+      const query = 'UPDATE users SET nome = ?, email = ?, token = ? WHERE matricula = ?';
+      db.query(query, [nome, email, token, matricula], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results.affectedRows > 0);
+        }
+      });
+    });
+  },
+  updateUserComissao: (matricula, comissao) => {
+    return new Promise((resolve, reject) => {
+      const query = 'UPDATE users SET comissao = ? WHERE matricula = ?';
+      db.query(query, [comissao, matricula], (error, results) => {
         if (error) {
           reject(error);
         } else {

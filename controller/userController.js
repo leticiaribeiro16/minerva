@@ -7,22 +7,20 @@ exports.authenticateUser = async (req, res, next) => {
 
         if (token) {
             const data = await authService.getData(token);
-            const id = await User.findByUsername(req.body.username);
+            const id = await User.findByMatricula(req.body.username);
             if (id) {
                 await User.update(
-                    id,
                     data.nome_usual,
                     data.email,
                     data.matricula,
-                    data.tipo_vinculo = 'comum',
+                    data.tipo_vinculo,
                     token
                 );
             } else {
-                await User.create(req.body.username,
-                                data.nome_usual,
+                await User.create(data.nome_usual,
                                 data.email,
                                 data.matricula,
-                                data.tipo_vinculo = 'comum',
+                                data.tipo_vinculo,
                                 token);
             }
 
