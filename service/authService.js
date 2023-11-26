@@ -7,7 +7,6 @@ const authService = {
                 username: username,
                 password: password
             });
-            console.log(response.data);
             if (response.data.access) {
                 return response.data.access;
             } else {
@@ -28,7 +27,18 @@ const authService = {
         } catch (error) {
           throw error;
         }
-      }
+      },
+      createToken: (user) => {
+        const payload = {
+            username: user.username,
+            role: user.role
+        };
+        const secret = 'senhamuitoforte';
+        const options = {
+            expiresIn: '1h'
+        };
+        return jwt.sign(payload, secret, options);
+    },
 };
 
 module.exports = authService;

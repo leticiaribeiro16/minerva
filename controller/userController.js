@@ -6,10 +6,10 @@ exports.authenticateUser = async (req, res, next) => {
         if (!req.body.username || !req.body.password){
             return res.status(400).json({ message: 'Username and password are required.' });
         }
-        const token = await authService.login(req.body.username, req.body.password);
+        const suapToken = await authService.login(req.body.username, req.body.password);
 
-        if (token) {
-            const data = await authService.getData(token);
+        if (suapToken) {
+            const data = await authService.getData(suapToken);
             const id = await User.findByMatricula(req.body.username);
             if (id) {
                 await User.update(
@@ -17,15 +17,16 @@ exports.authenticateUser = async (req, res, next) => {
                     data.email,
                     data.matricula,
                     data.tipo_vinculo,
-                    token
+                    suapToken
                 );
             } else {
                 await User.create(data.nome_usual,
                     data.email,
                     data.matricula,
                     data.tipo_vinculo,
-                    token);
+                    suapToken);
             }
+            const token = authService.createToken({ username: req.body.username, role: data.tipo_vinculo });
 
             res.status(200).json({ message: 'User authenticated and updated successfully!', token: token });
         } else {
