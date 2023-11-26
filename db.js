@@ -1,9 +1,9 @@
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'admin',
-  password: '@Senha1234',
+  host: 'http://bdminerva.mysql.database.azure.com',
+  user: 'bdminerva',
+  password: 'AdoAdoAdo123!#$',
   database: 'minerva'
 });
 
