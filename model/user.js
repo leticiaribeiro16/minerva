@@ -1,10 +1,10 @@
 const db = require('../db');
 
 const User = {
-  create: (nome, email, matricula, role, token) => {
+  create: (nome, email, matricula, role, soaptoken, apptoken) => {
     return new Promise((resolve, reject) => {
-      const query = 'INSERT INTO users (nome, email, matricula, role, token) VALUES (?, ?, ?, ?, ?)';
-      db.query(query, [nome, email, matricula, role, token], (error, results) => {
+      const query = 'INSERT INTO users (nome, email, matricula, role, suaptoken, apptoken) VALUES (?, ?, ?, ?, ?, ?)';
+      db.query(query, [nome, email, matricula, role, soaptoken, apptoken], (error, results) => {
         if (error) {
           reject(error);
         } else {
@@ -39,20 +39,20 @@ const User = {
   },
   findByMatricula: (matricula) => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT matricula FROM users WHERE matricula = ?';
+      const query = 'SELECT * FROM users WHERE matricula = ?';
       db.query(query, [matricula], (error, results) => {
         if (error) {
           reject(error);
         } else {
-          resolve(results[0] ? results[0].matricula : null);
+          resolve(results[0] ? results[0] : null);
         }
       });
     });
   },
-  update: (nome, email, matricula, token) => {
+  update: (matricula, suaptoken, apptoken) => {
     return new Promise((resolve, reject) => {
-      const query = 'UPDATE users SET nome = ?, email = ?, token = ? WHERE matricula = ?';
-      db.query(query, [nome, email, token, matricula], (error, results) => {
+      const query = 'UPDATE users SET suaptoken = ?, apptoken = ? WHERE matricula = ?';
+      db.query(query, [suaptoken, apptoken, matricula], (error, results) => {
         if (error) {
           reject(error);
         } else {

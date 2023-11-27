@@ -9,26 +9,27 @@ exports.authenticateUser = async (req, res, next) => {
         const suapToken = await authService.login(req.body.username, req.body.password);
 
         if (suapToken) {
-            const data = await authService.getData(suapToken);
-            const id = await User.findByMatricula(req.body.username);
-            if (id) {
+            let apptoken;
+            const user = await User.findByMatricula(req.body.username);
+            if (user) {
+                apptoken = authService.createToken({ username: req.body.username, role: user.role });
                 await User.update(
-                    data.nome_usual,
-                    data.email,
-                    data.matricula,
-                    data.tipo_vinculo,
-                    suapToken
+                    req.body.username,
+                    suapToken,
+                    apptoken
                 );
             } else {
+                const data = await authService.getData(suapToken);
+                apptoken = authService.createToken({ username: req.body.username, role: data.tipo_vinculo });
                 await User.create(data.nome_usual,
                     data.email,
                     data.matricula,
                     data.tipo_vinculo,
-                    suapToken);
+                    suapToken,
+                    apptoken);
             }
-            const token = authService.createToken({ username: req.body.username, role: data.tipo_vinculo });
 
-            res.status(200).json({ message: 'User authenticated and updated successfully!', token: token });
+            res.status(200).json({ message: 'User authenticated and updated successfully!', token: apptoken });
         } else {
             res.status(401).json({ message: 'Authentication failed.' });
         }
