@@ -11,8 +11,10 @@ exports.authenticateUser = async (req, res, next) => {
         if (suapToken) {
             let apptoken;
             const user = await User.findByMatricula(req.body.username);
+            let acesso;
             if (user) {
                 apptoken = authService.createToken({ username: req.body.username, role: user.role });
+                acesso = user.role;
                 await User.update(
                     req.body.username,
                     suapToken,
@@ -21,6 +23,7 @@ exports.authenticateUser = async (req, res, next) => {
             } else {
                 const data = await authService.getData(suapToken);
                 apptoken = authService.createToken({ username: req.body.username, role: data.tipo_vinculo });
+                acesso = data.tipo_vinculo;
                 await User.create(data.nome_usual,
                     data.email,
                     data.matricula,
@@ -28,8 +31,7 @@ exports.authenticateUser = async (req, res, next) => {
                     suapToken,
                     apptoken);
             }
-
-            res.status(200).json({ message: 'User authenticated and updated successfully!', token: apptoken });
+            res.status(200).json({ message: 'User authenticated and updated successfully!', token: apptoken, acesso: acesso });
         } else {
             res.status(401).json({ message: 'Authentication failed.' });
         }

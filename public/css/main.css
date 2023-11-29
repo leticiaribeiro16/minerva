@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+:root{
+    --header-height: 3rem;
+    --nav-width: 68px;
+    --first-color: #455A64;
+    --first-color-light: #678390;
+    --white-color: #F7F6FB;
+    --body-font: 'Poppins', sans-serif;
+    --normal-font-size: 1rem;
+    --z-fixed: 100
+}
+
+.btn{
+    height: 35px;
+    flex-shrink: 0;  
+    border-radius: 30px;
+    border: 0 none;
+}
+
+.infoweb{
+    background-color: #2343B6;
+}
+
+.eletronica{
+    background-color: #BB3737;
+}
+
+.comercio{
+    background-color: #FFDE30;
+    color: #1e1e1e;
+}
+
+.propedeutica{
+    background-color: #678390;
+}
+
+.tecnico{
+    background-color: #455A64;
+}  
+
+.visualizacao{
+    display: flex;
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 100% !important;
+    background: var(--Cinza-escuro, #455A64);
+}
+
+.visualizacao i{
+    color: #F7F6FB;
+}
+
+.card-body-header .card-title{
+    float: right;
+}
