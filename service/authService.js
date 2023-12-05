@@ -3,20 +3,20 @@ const jwt = require('jsonwebtoken');
 
 const authService = {
     login: async (username, password) => {
-          return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjIwMjAxMDQxMTEwMDA1Iiwicm9sZSI6IkFsdW5vIiwiaWF0IjoxNzAxMjE5MTM3LCJleHAiOjE3MDEyMjI3Mzd9.xoLkyQ6nmOIFL2NzIA-8jmPpNiYQVEZXo7erzP-9TNM";
-//        try {
-//            const response = await axios.post('https://suap.ifrn.edu.br/api/v2/autenticacao/token/', {
-//                username: username,
-//                password: password
-//            });
-//            if (response.data.access) {
-//                return response.data.access;
-//            } else {
-//                throw new Error('Access token not found in response');
-//            }
-//        } catch (error) {
-//           throw error;
-//        }
+        //return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjIwMjAxMDQxMTEwMDA1Iiwicm9sZSI6IkFsdW5vIiwiaWF0IjoxNzAxMjE5MTM3LCJleHAiOjE3MDEyMjI3Mzd9.xoLkyQ6nmOIFL2NzIA-8jmPpNiYQVEZXo7erzP-9TNM";
+       try {
+           const response = await axios.post('https://suap.ifrn.edu.br/api/v2/autenticacao/token/', {
+               username: username,
+               password: password
+           });
+           if (response.data.access) {
+               return response.data.access;
+           } else {
+               throw new Error('Access token not found in response');
+           }
+       } catch (error) {
+          throw error;
+       }
     },
     getData: async (token) => {
         try {
