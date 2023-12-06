@@ -14,8 +14,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   .then(response => response.json())
   .then(data => {
     if (data && data.token) {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('role', data.acesso);
       window.location.href = `/${data.acesso}`;
     } else {
       alert('Authentication failed.');
