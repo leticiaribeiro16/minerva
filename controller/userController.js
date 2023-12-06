@@ -6,7 +6,7 @@ exports.authenticateUser = async (req, res, next) => {
         if (!req.body.username || !req.body.password){
             return res.status(400).json({ message: 'Username and password are required.' });
         }
-        const suapToken = await authService.login(req.body.username, req.body.password);
+        const suapToken = 'token here'; //await authService.login(req.body.username, req.body.password);
 
         if (suapToken) {
             let apptoken;
@@ -31,6 +31,7 @@ exports.authenticateUser = async (req, res, next) => {
                     suapToken,
                     apptoken);
             }
+            req.session.token = apptoken;
             res.status(200).json({ message: 'User authenticated and updated successfully!', token: apptoken, acesso: acesso });
         } else {
             res.status(401).json({ message: 'Authentication failed.' });

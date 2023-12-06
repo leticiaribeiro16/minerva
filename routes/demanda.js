@@ -4,7 +4,7 @@ var router = express.Router();
 var demandaController = require('../controller/demandaController');
 var authMiddleware = require('../middleware/authMiddleware');
 
-router.use(authMiddleware);
+router.use(authMiddleware.authMiddleware);
 
 router.post('/', demandaController.createDemanda);
 router.get('/:id', demandaController.getDemanda);
