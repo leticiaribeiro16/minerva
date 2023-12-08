@@ -69,7 +69,18 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
             carga_horaria INT
         );`, (err, results) => {
             if(err) {
-                console.error('Error initializing users table:', err);
+                console.error('Error initializing disciplina table:', err);
+            } else {
+                console.log('Disciplina table initialized successfully');
+            }
+        });
+        db.query(`INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Matemática', 'Estudo de números e formas', 100);
+        INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Física', 'Estudo de matéria e energia', 120);
+        INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Química', 'Estudo de substâncias e suas interações', 110);
+        INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Biologia', 'Estudo de organismos vivos', 130);
+        INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Ciência da Computação', 'Estudo de computação e informação', 140);`, (err, results) => {
+            if(err) {
+                console.error('Error initializing disciplina table:', err);
             } else {
                 console.log('Disciplina table initialized successfully');
             }

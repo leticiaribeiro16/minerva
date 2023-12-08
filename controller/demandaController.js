@@ -1,4 +1,5 @@
 const Demanda = require('../model/demanda');
+const authService = require('../service/authService');
 
 exports.createDemanda = async (req, res, next) => {
   try {
