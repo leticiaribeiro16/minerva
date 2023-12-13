@@ -1,53 +1,79 @@
-const db = require('../db');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 const Demanda = {
-  create: (id_disciplina, orientador, qnt_bolsas, requisitos) => {
-    return new Promise((resolve, reject) => {
-      const query = 'INSERT INTO demanda (id_disciplina, orientador, qnt_bolsas, requisitos) VALUES (?, ?, ?, ?)';
-      db.query(query, [id_disciplina, orientador, qnt_bolsas, requisitos], (error, results) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results.insertId);
-        }
+  create: async (id_disciplina, orientador, qnt_bolsas, requisitos) => {
+    try {
+      const demanda = await prisma.demanda.create({
+        data: {
+          id_disciplina,
+          orientador,
+          qnt_bolsas,
+          requisitos,
+        },
       });
-    });
+
+      return demanda.id; 
+    } catch (error) {
+      throw error;
+    }
   },
-  get: (id) => {
-    return new Promise((resolve, reject) => {
-      const query = 'SELECT * FROM demanda WHERE id = ?';
-      db.query(query, [id], (error, results) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results[0]);
-        }
+
+  get: async (id) => {
+    try {
+      const demanda = await prisma.demanda.findUnique({
+        where: {
+          id,
+        },
       });
-    });
+
+      return demanda;
+    } catch (error) {
+      throw error;
+    }
   },
-  update: (id, id_disciplina, orientador, qnt_bolsas, requisitos) => {
-    return new Promise((resolve, reject) => {
-      const query = 'UPDATE demanda SET id_disciplina = ?, orientador = ?, qnt_bolsas = ?, requisitos = ? WHERE id = ?';
-      db.query(query, [id_disciplina, orientador, qnt_bolsas, requisitos, id], (error, results) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results.affectedRows > 0);
-        }
+
+  update: async (id, id_disciplina, orientador, qnt_bolsas, requisitos) => {
+    try {
+      const updatedDemanda = await prisma.demanda.update({
+        where: {
+          id,
+        },
+        data: {
+          id_disciplina,
+          orientador,
+          qnt_bolsas,
+          requisitos,
+        },
       });
-    });
+
+      return updatedDemanda !== null;
+    } catch (error) {
+      throw error;
+    }
   },
-  delete: (id) => {
-    return new Promise((resolve, reject) => {
-      const query = 'DELETE FROM demanda WHERE id = ?';
-      db.query(query, [id], (error, results) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(results.affectedRows > 0);
-        }
+
+  delete: async (id) => {
+    try {
+      const deletedDemanda = await prisma.demanda.delete({
+        where: {
+          id,
+        },
       });
-    });
+
+      return deletedDemanda !== null;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  getAll: async () => {
+    try {
+      const demandas = await prisma.demanda.findMany();
+      return demandas;
+    } catch (error) {
+      throw error;
+    }
   },
 };
 
