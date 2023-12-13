@@ -30,6 +30,16 @@ exports.getEdital = async (req, res, next) => {
   }
 };
 
+exports.getAllEditais = async (req, res, next) => {
+  try {
+    const editais = await Edital.getAll();
+    res.status(200).json(editais);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'An error occurred.', error: error });
+  }
+};
+
 exports.updateEdital = async (req, res, next) => {
   try {
     const { id } = req.params;
