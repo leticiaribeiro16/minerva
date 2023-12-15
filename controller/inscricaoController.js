@@ -2,13 +2,13 @@ const Inscricao = require('../model/inscricao');
 
 exports.createInscricao = async (req, res, next) => {
   try {
-    const { matricula, aprovado, nota } = req.body;
+    const { matricula, aprovado, nota, turno } = req.body;
 
-    if (!matricula || typeof aprovado !== 'boolean') {
-      return res.status(400).json({ message: 'Matricula and boolean aprovado are required.' });
+    if (!matricula || typeof aprovado !== 'boolean' || !turno) {
+      return res.status(400).json({ message: 'Matricula, boolean aprovado, and turno are required.' });
     }
 
-    const result = await Inscricao.create(matricula, aprovado, nota);
+    const result = await Inscricao.create(matricula, aprovado, nota, turno);
     res.status(201).json({ message: 'Inscricao created successfully!', id: result });
   } catch (error) {
     console.error(error);
@@ -43,13 +43,13 @@ exports.getAllInscricoes = async (req, res, next) => {
 exports.updateInscricao = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { matricula, aprovado, nota } = req.body;
+    const { matricula, aprovado, nota, turno } = req.body;
 
-    if (!matricula || typeof aprovado !== 'boolean') {
-      return res.status(400).json({ message: 'Matricula and boolean aprovado are required.' });
+    if (!matricula || typeof aprovado !== 'boolean' || !turno) {
+      return res.status(400).json({ message: 'Matricula, boolean aprovado, and turno are required.' });
     }
 
-    const result = await Inscricao.update(id, matricula, aprovado, nota);
+    const result = await Inscricao.update(id, matricula, aprovado, nota, turno);
     result
       ? res.status(200).json({ message: 'Inscricao updated successfully!' })
       : res.status(404).json({ message: 'Inscricao not found!' });
