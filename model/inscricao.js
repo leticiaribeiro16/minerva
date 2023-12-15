@@ -2,13 +2,14 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const Inscricao = {
-  create: async (matricula, aprovado, nota) => {
+  create: async (matricula, aprovado, nota, turno) => {
     try {
       const inscricao = await prisma.inscricao.create({
         data: {
           matricula,
           aprovado,
           nota,
+          turno,
         },
       });
 
@@ -40,7 +41,6 @@ const Inscricao = {
       throw error;
     }
   },
-
 };
 
 module.exports = Inscricao;
