@@ -1,0 +1,51 @@
+datasource db {
+  provider = "mysql"
+  url      = "mysql://admin:@Senha1234@localhost:3306/minerva"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int         @id @default(autoincrement())
+  nome      String
+  email     String      @unique
+  matricula String      @unique
+  role      String
+  suaptoken String
+  apptoken  String
+  comissao  Boolean
+  inscricao Inscricao[]
+}
+
+model Demanda {
+  id            Int        @id @default(autoincrement())
+  id_disciplina Int
+  orientador    String
+  qnt_bolsas    Int
+  requisitos    String
+  disciplina    Disciplina @relation(fields: [id_disciplina], references: [id])
+  edital        Edital[]
+}
+
+model Disciplina {
+  id       Int       @id @default(autoincrement())
+  titulo   String
+  demandas Demanda[]
+}
+
+model Edital {
+  id         Int     @id @default(autoincrement())
+  id_demanda Int
+  titulo     String
+  demanda    Demanda @relation(fields: [id_demanda], references: [id])
+}
+
+model Inscricao {
+  id        Int     @id @default(autoincrement())
+  matricula String
+  aprovado  Boolean
+  nota      Float?
+  usuario   User    @relation(fields: [matricula], references: [matricula])
+}
