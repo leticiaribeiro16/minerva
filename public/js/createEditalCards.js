@@ -1,4 +1,4 @@
-function createCards(data, container) {
+function createEditalCards(data, container) {
 
     data.forEach(item => {
         // Create card elements
@@ -41,8 +41,6 @@ function createCards(data, container) {
     });
 }
 
-// c:\Minerva\public\js\createCards.js
-
 fetch('http://localhost:3000/edital/', {
     headers: {
         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -50,9 +48,7 @@ fetch('http://localhost:3000/edital/', {
 })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         const editaisContainer = document.querySelector('#editaisContainer');
-        console.log(editaisContainer);
-        createCards(data, editaisContainer);
+        createEditalCards(data, editaisContainer);
     })
     .catch(error => console.error('Error:', error));

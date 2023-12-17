@@ -57,59 +57,13 @@
   <div class="height-100">
     <h1>Inscrições</h1>
 
-
     <!-- EM ANDAMENTO -->
     <h3>Em andamento</h3>
-    <div class="row">
-
-      <div class="card" style="width: 18rem;">
-        <div class="card-header">
-          <h5 class="card-title">Disciplina</h5>
-          <a href="" class="btn">
-            <i class='bx bx-edit-alt nav_icon'></i>
-          </a>
-          <a href="" class="btn">
-            <i class='bx bx-trash-alt nav_icon'></i>
-          </a>
-        </div>
-        <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-body-secondary">Orientador</h6>
-          <a href="" class="btn btn-warning">Em Análise</a>
-        </div>
-      </div>
-
-
-    </div>
+    <div class="row" id="emAndamentoContainer"></div>
 
     <!-- FINALIZADOS -->
     <h3>Finalizados</h3>
-    <div class="row">
-
-      <div class="card" style="width: 18rem;">
-        <div class="card-header">
-          <h5 class="card-title">Disciplina</h5>
-        </div>
-        <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-body-secondary">Orientador</h6>
-          <a href="" class="btn btn-danger">Finalizado</a>
-        </div>
-      </div>
-
-      <div class="card" style="width: 18rem;">
-        <div class="card-header">
-          <h5 class="card-title">Disciplina</h5>
-        </div>
-        <div class="card-body">
-          <h6 class="card-subtitle mb-2 text-body-secondary">Orientador</h6>
-          <a href="" class="btn btn-danger">Finalizado</a>
-        </div>
-      </div>
-
-
-    </div>
-
-
-
+    <div class="row" id="finalizadosContainer"></div>
 
   </div>
 
@@ -123,7 +77,22 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"></script>
-  <script src="/js/header.js"></script>
+    <script src="/js/createProcessosCards.js"></script>
+    <script>
+        fetch('http://localhost:3000/inscricao/', {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const emAndamentoContainer = document.querySelector('#emAndamentoContainer');
+            const finalizadosContainer = document.querySelector('#finalizadosContainer');
+            createProcessosCards(data, emAndamentoContainer, 0);
+            createProcessosCards(data, finalizadosContainer, 1);
+        })
+        .catch(error => console.error('Error:', error));
+    </script>
 </body>
 
 </html>

@@ -14,6 +14,7 @@ const requireAuth = (req, res, next) => {
     try {
         const token = req.headers.authorization?.split(' ')[1];
         const decodedToken = authService.decodeToken(token);
+        req.token = req.session.token;
 
         if (!decodedToken) {
             return res.status(401).json({ message: 'Authentication failed.' });
@@ -28,14 +29,12 @@ const requireAuth = (req, res, next) => {
 };
 
 const requireRole = (role) => (req, res, next) => {
-    console.log('Required: %s', role);
     let token = req.session.token;
     if (!token || token === '') {
         token = req.headers.authorization?.split(' ')[1];
     }
     if (token) {
         const decodedToken = authService.decodeToken(token);
-        console.log('Is: %s', decodedToken.role);
         if (decodedToken && decodedToken.role === role) {
             next();
         } else {
