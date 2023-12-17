@@ -175,6 +175,13 @@ db.query('SELECT 1 FROM edital LIMIT 1', (err, results) => {
                 console.log('Demanda inserted successfully');
             }
         });
+        db.query(`INSERT INTO demanda (id_disciplina, orientador, qnt_bolsas, requisitos) VALUES (2, '123456', 3, 'Alguns')`, (err, results) => {
+            if(err) {
+                console.error('Error initializing demanda table:', err);
+            } else {
+                console.log('Demanda inserted successfully');
+            }
+        });
     }
 });
 db.query('SELECT 1 FROM inscricao LIMIT 1', (err, results) => {
@@ -197,6 +204,13 @@ db.query('SELECT 1 FROM inscricao LIMIT 1', (err, results) => {
             }
         });
         db.query(`INSERT INTO edital (titulo, id_demanda) VALUES ('Edital 1', 1)`, (err, results) => {
+            if(err) {
+                console.error('Error initializing edital table:', err);
+            } else {
+                console.log('Edital inserted successfully');
+            }
+        });
+        db.query(`INSERT INTO edital (titulo, id_demanda) VALUES ('Monitoria de Fisica', 2)`, (err, results) => {
             if(err) {
                 console.error('Error initializing edital table:', err);
             } else {
