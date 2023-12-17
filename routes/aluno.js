@@ -1,10 +1,9 @@
 // File: routes/aluno.js
 
+const path = require('path');
 const express = require('express');
 const router = express.Router();
-var authMiddleware = require('../middleware/authMiddleware');
 const { requireLogin, requireRole } = require('../middleware/authMiddleware');
-router.use(authMiddleware.authMiddleware);
 
 router.use(requireLogin);
 router.use(requireRole('Aluno'));

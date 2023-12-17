@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var inscricaoController = require('../controller/inscricaoController');
-var authMiddleware = require('../middleware/authMiddleware');
+const { requireAuth, requireRole } = require('../middleware/authMiddleware');
 
-router.use(authMiddleware.authMiddleware);
+router.use(requireAuth,requireRole('Aluno'));
 
 router.post('/', inscricaoController.createInscricao);
 router.get('/:id', inscricaoController.getInscricao);
