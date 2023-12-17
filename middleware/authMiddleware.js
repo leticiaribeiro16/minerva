@@ -28,8 +28,14 @@ const requireAuth = (req, res, next) => {
 };
 
 const requireRole = (role) => (req, res, next) => {
-    if (req.session.token) {
-        const decodedToken = authService.decodeToken(req.session.token);
+    console.log('Required: %s', role);
+    let token = req.session.token;
+    if (!token || token === '') {
+        token = req.headers.authorization?.split(' ')[1];
+    }
+    if (token) {
+        const decodedToken = authService.decodeToken(token);
+        console.log('Is: %s', decodedToken.role);
         if (decodedToken && decodedToken.role === role) {
             next();
         } else {

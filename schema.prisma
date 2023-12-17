@@ -43,9 +43,10 @@ model Edital {
 }
 
 model Inscricao {
-  id        Int     @id @default(autoincrement())
-  matricula String
-  aprovado  Boolean
-  nota      Float?
-  usuario   User    @relation(fields: [matricula], references: [matricula])
+  id_edital Int     @id
+  matricula   String  @id
+  aprovado  Int
+  nota      Float
+  user      User    @relation(fields: [matricula], references: [matricula])
+  edital    Edital  @relation(fields: [id_edital], references: [id])
 }

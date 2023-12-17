@@ -128,7 +128,6 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
                 console.log('Disciplina Ciência da Computação inserted successfully');
             }
         });
-        console.error('Error initializing disciplina table:', err);
     } else {
         console.log('Disciplina table initialized successfully');
     }
@@ -154,24 +153,6 @@ db.query('SELECT 1 FROM demanda LIMIT 1', (err, results) => {
         });
     }
 });
-db.query('SELECT 1 FROM inscricao LIMIT 1', (err, results) => {
-    if (err) {
-        console.log('inscricao table does not exist, initializing...');
-        db.query(`CREATE TABLE inscricao (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            id_user VARCHAR(255),
-            aprovado SMALLINT,
-            nota FLOAT,
-            FOREIGN KEY (id_user) REFERENCES users(matricula)
-        );`, (err, results) => {
-            if (err) {
-                console.error('Error initializing users table:', err);
-            } else {
-                console.log('inscricao table initialized successfully');
-            }
-        });
-    }
-});
 db.query('SELECT 1 FROM edital LIMIT 1', (err, results) => {
     if (err) {
         console.log('edital table does not exist, initializing...');
@@ -193,10 +174,8 @@ db.query('SELECT 1 FROM edital LIMIT 1', (err, results) => {
             } else {
                 console.log('Demanda inserted successfully');
         
-                // Get the last inserted id
                 const demandaId = results.insertId;
         
-                // Insert an 'edital' with the created 'demanda'
                 db.query(`INSERT INTO edital (titulo, id_demanda) VALUES ('Edital 1', ${demandaId})`, (err, results) => {
                     if(err) {
                         console.error('Error initializing edital table:', err);
@@ -204,6 +183,40 @@ db.query('SELECT 1 FROM edital LIMIT 1', (err, results) => {
                         console.log('Edital inserted successfully');
                     }
                 });
+            }
+        });
+    }
+});
+db.query('SELECT 1 FROM inscricao LIMIT 1', (err, results) => {
+    if (err) {
+        console.log('inscricao table does not exist, initializing...');
+        db.query(`CREATE TABLE inscricao (
+            id_edital INT,
+            matricula VARCHAR(255),
+            aprovado SMALLINT,
+            nota FLOAT,
+            PRIMARY KEY (id_edital, matricula),
+            FOREIGN KEY (id_edital) REFERENCES edital(id),
+            FOREIGN KEY (matricula) REFERENCES users(matricula)
+        );`, (err, results) => {
+            if (err) {
+                console.error('Error initializing users table:', err);
+            } else {
+                console.log('inscricao table initialized successfully');
+            }
+        });
+        db.query(`INSERT INTO edital (titulo, id_demanda) VALUES ('Edital 1', 1)`, (err, results) => {
+            if(err) {
+                console.error('Error initializing edital table:', err);
+            } else {
+                console.log('Edital inserted successfully');
+            }
+        });
+        db.query(`INSERT INTO inscricao (id_edital, matricula, aprovado, nota) VALUES (1,'20201041110005', 0, 0)`, (err, results) => {
+            if (err) {
+                console.error('Error inserting into inscricao table:', err);
+            } else {
+                console.log('Inscricao inserted successfully');
             }
         });
     }
