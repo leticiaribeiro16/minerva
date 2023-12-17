@@ -52,7 +52,6 @@ fetch('http://localhost:3000/edital/', {
     .then(data => {
         console.log(data);
         const editaisContainer = document.querySelector('#editaisContainer');
-        const processosContainer = document.querySelector('#processosContainer');
         console.log(editaisContainer);
         createCards(data, editaisContainer);
     })
