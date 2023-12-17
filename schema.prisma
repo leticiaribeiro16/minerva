@@ -52,7 +52,7 @@ model Inscricao {
   matricula String
   aprovado  Int     @default(0)
   nota      Float
-  turno     Int     @db.NotNull
+  turno     Int
   user      User    @relation(fields: [matricula], references: [matricula])
   edital    Edital  @relation(fields: [id_edital], references: [id])
 
