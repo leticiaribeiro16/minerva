@@ -24,7 +24,7 @@ app.get('/testeConection', (req, res) => {
     });
 });
 db.query('CREATE DATABASE IF NOT EXISTS minerva', (err, results) => {
-    if(err) {
+    if (err) {
         console.error('Error creating database:', err);
     } else {
         console.log('Database checked/created successfully');
@@ -32,7 +32,7 @@ db.query('CREATE DATABASE IF NOT EXISTS minerva', (err, results) => {
 });
 
 db.query('USE minerva', (err, results) => {
-    if(err) {
+    if (err) {
         console.error('Error selecting database:', err);
     } else {
         console.log('Database selected successfully');
@@ -40,7 +40,7 @@ db.query('USE minerva', (err, results) => {
 });
 
 db.query('SELECT 1 FROM users LIMIT 1', (err, results) => {
-    if(err) {
+    if (err) {
         console.log('Users table does not exist, initializing...');
         db.query(`CREATE TABLE users (
             matricula varchar(255) NOT NULL PRIMARY KEY,
@@ -51,16 +51,30 @@ db.query('SELECT 1 FROM users LIMIT 1', (err, results) => {
             suaptoken varchar(255),
             apptoken varchar(255)
             );`, (err, results) => {
-            if(err) {
+            if (err) {
                 console.error('Error initializing users table:', err);
             } else {
                 console.log('Users table initialized successfully');
             }
         });
+        db.query(`INSERT INTO users (matricula, nome, email, comissao) VALUES ('123456', 'Professor Mock', 'professor.mock@example.com', 1)`, (err, results) => {
+            if (err) {
+                console.error('Error initializing users table:', err);
+            } else {
+                console.log('User inserted successfully');
+            }
+        });
+        db.query(`INSERT INTO users (matricula, nome, email, role, comissao, suaptoken, apptoken) VALUES ('20201041110005', 'Leticia Ribeiro', 'ribeiro.l@academico.ifrn.edu.br', 'Aluno', '0', 'token', '')`, (err, results) => {
+            if (err) {
+                console.error('Error initializing users table:', err);
+            } else {
+                console.log('User inserted successfully');
+            }
+        });
     }
 });
 db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
-    if(err) {
+    if (err) {
         console.log('Disciplina table does not exist, initializing...');
         db.query(`CREATE TABLE disciplina (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -68,17 +82,46 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
             descricao VARCHAR(255),
             carga_horaria INT
         );`, (err, results) => {
+            if (err) {
+                console.error('Error initializing disciplina table:', err);
+            } else {
+                console.log('Disciplina table initialized successfully');
+            }
+        });
+
+        db.query(`INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Matemática', 'Estudo de números e formas', 100)`, (err, results) => {
             if(err) {
                 console.error('Error initializing disciplina table:', err);
             } else {
                 console.log('Disciplina table initialized successfully');
             }
         });
-        db.query(`INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Matemática', 'Estudo de números e formas', 100);
-        INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Física', 'Estudo de matéria e energia', 120);
-        INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Química', 'Estudo de substâncias e suas interações', 110);
-        INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Biologia', 'Estudo de organismos vivos', 130);
-        INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Ciência da Computação', 'Estudo de computação e informação', 140);`, (err, results) => {
+
+        db.query(`INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Física', 'Estudo de matéria e energia', 120)`, (err, results) => {
+            if(err) {
+                console.error('Error initializing disciplina table:', err);
+            } else {
+                console.log('Disciplina table initialized successfully');
+            }
+        });
+
+        db.query(`INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Química', 'Estudo de substâncias e suas interações', 110)`, (err, results) => {
+            if(err) {
+                console.error('Error initializing disciplina table:', err);
+            } else {
+                console.log('Disciplina table initialized successfully');
+            }
+        });
+
+        db.query(`INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Biologia', 'Estudo de organismos vivos', 130)`, (err, results) => {
+            if(err) {
+                console.error('Error initializing disciplina table:', err);
+            } else {
+                console.log('Disciplina table initialized successfully');
+            }
+        });
+
+        db.query(`INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Ciência da Computação', 'Estudo de computação e informação', 140)`, (err, results) => {
             if(err) {
                 console.error('Error initializing disciplina table:', err);
             } else {
@@ -89,7 +132,7 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
 });
 
 db.query('SELECT 1 FROM demanda LIMIT 1', (err, results) => {
-    if(err) {
+    if (err) {
         console.log('demanda table does not exist, initializing...');
         db.query(`CREATE TABLE demanda (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -100,7 +143,7 @@ db.query('SELECT 1 FROM demanda LIMIT 1', (err, results) => {
             FOREIGN KEY (id_disciplina) REFERENCES disciplina(id),
             FOREIGN KEY (orientador) REFERENCES users(matricula)
         );`, (err, results) => {
-            if(err) {
+            if (err) {
                 console.error('Error initializing users table:', err);
             } else {
                 console.log('demanda table initialized successfully');
@@ -109,7 +152,7 @@ db.query('SELECT 1 FROM demanda LIMIT 1', (err, results) => {
     }
 });
 db.query('SELECT 1 FROM inscricao LIMIT 1', (err, results) => {
-    if(err) {
+    if (err) {
         console.log('inscricao table does not exist, initializing...');
         db.query(`CREATE TABLE inscricao (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -118,7 +161,7 @@ db.query('SELECT 1 FROM inscricao LIMIT 1', (err, results) => {
             nota FLOAT,
             FOREIGN KEY (id_user) REFERENCES users(matricula)
         );`, (err, results) => {
-            if(err) {
+            if (err) {
                 console.error('Error initializing users table:', err);
             } else {
                 console.log('inscricao table initialized successfully');
@@ -127,7 +170,7 @@ db.query('SELECT 1 FROM inscricao LIMIT 1', (err, results) => {
     }
 });
 db.query('SELECT 1 FROM edital LIMIT 1', (err, results) => {
-    if(err) {
+    if (err) {
         console.log('edital table does not exist, initializing...');
         db.query(`CREATE TABLE edital (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -135,7 +178,7 @@ db.query('SELECT 1 FROM edital LIMIT 1', (err, results) => {
             id_demanda INT,
             FOREIGN KEY (id_demanda) REFERENCES demanda(id)
         );`, (err, results) => {
-            if(err) {
+            if (err) {
                 console.error('Error initializing users table:', err);
             } else {
                 console.log('edital table initialized successfully');
