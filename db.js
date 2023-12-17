@@ -173,16 +173,6 @@ db.query('SELECT 1 FROM edital LIMIT 1', (err, results) => {
                 console.error('Error initializing demanda table:', err);
             } else {
                 console.log('Demanda inserted successfully');
-        
-                const demandaId = results.insertId;
-        
-                db.query(`INSERT INTO edital (titulo, id_demanda) VALUES ('Edital 1', ${demandaId})`, (err, results) => {
-                    if(err) {
-                        console.error('Error initializing edital table:', err);
-                    } else {
-                        console.log('Edital inserted successfully');
-                    }
-                });
             }
         });
     }
