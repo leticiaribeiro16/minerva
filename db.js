@@ -90,7 +90,7 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
         });
 
         db.query(`INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Matemática', 'Estudo de números e formas', 100)`, (err, results) => {
-            if(err) {
+            if (err) {
                 console.error('Error initializing disciplina table:', err);
             } else {
                 console.log('Disciplina Matemática inserted successfully');
@@ -98,7 +98,7 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
         });
 
         db.query(`INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Física', 'Estudo de matéria e energia', 120)`, (err, results) => {
-            if(err) {
+            if (err) {
                 console.error('Error initializing disciplina table:', err);
             } else {
                 console.log('Disciplina Física inserted successfully');
@@ -106,7 +106,7 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
         });
 
         db.query(`INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Química', 'Estudo de substâncias e suas interações', 110)`, (err, results) => {
-            if(err) {
+            if (err) {
                 console.error('Error initializing disciplina table:', err);
             } else {
                 console.log('Disciplina Química inserted successfully');
@@ -114,7 +114,7 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
         });
 
         db.query(`INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Biologia', 'Estudo de organismos vivos', 130)`, (err, results) => {
-            if(err) {
+            if (err) {
                 console.error('Error initializing disciplina table:', err);
             } else {
                 console.log('Disciplina Biologia inserted successfully');
@@ -122,17 +122,17 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
         });
 
         db.query(`INSERT INTO disciplina (nome, descricao, carga_horaria) VALUES ('Ciência da Computação', 'Estudo de computação e informação', 140)`, (err, results) => {
-            if(err) {
+            if (err) {
                 console.error('Error initializing disciplina table:', err);
             } else {
                 console.log('Disciplina Ciência da Computação inserted successfully');
             }
         });
-                console.error('Error initializing disciplina table:', err);
-            } else {
-                console.log('Disciplina table initialized successfully');
-            }
-        });
+        console.error('Error initializing disciplina table:', err);
+    } else {
+        console.log('Disciplina table initialized successfully');
+    }
+});
 
 db.query('SELECT 1 FROM demanda LIMIT 1', (err, results) => {
     if (err) {
