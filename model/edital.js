@@ -27,7 +27,7 @@ const Edital = {
   },
   getById: (id) => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT * FROM edital WHERE id = ?';
+      const query = 'SELECT e.id, e.titulo AS tituloedital, u.nome, d.qnt_bolsas, di.nome AS disciplina, di.carga_horaria FROM edital e LEFT JOIN demanda d ON d.id = e.id_demanda LEFT JOIN disciplina di ON di.id = d.id_disciplina left join users u on u.matricula = d.orientador WHERE e.id = ?';
       db.query(query, [id], (error, results) => {
         if (error) {
           reject(error);

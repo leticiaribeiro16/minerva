@@ -183,7 +183,8 @@ db.query('SELECT 1 FROM inscricao LIMIT 1', (err, results) => {
         db.query(`CREATE TABLE inscricao (
             id_edital INT,
             matricula VARCHAR(255),
-            aprovado SMALLINT,
+            aprovado SMALLINT default 0,
+            turno SMALLINT not null,
             nota FLOAT,
             PRIMARY KEY (id_edital, matricula),
             FOREIGN KEY (id_edital) REFERENCES edital(id),
@@ -202,7 +203,7 @@ db.query('SELECT 1 FROM inscricao LIMIT 1', (err, results) => {
                 console.log('Edital inserted successfully');
             }
         });
-        db.query(`INSERT INTO inscricao (id_edital, matricula, aprovado, nota) VALUES (1,'20201041110005', 0, 0)`, (err, results) => {
+        db.query(`INSERT INTO inscricao (id_edital, matricula, turno) VALUES (1,'20201041110005', 1)`, (err, results) => {
             if (err) {
                 console.error('Error inserting into inscricao table:', err);
             } else {

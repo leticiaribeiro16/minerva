@@ -50,8 +50,9 @@ model Edital {
 model Inscricao {
   id_edital Int
   matricula String
-  aprovado  Int
+  aprovado  Int     @default(0)
   nota      Float
+  turno     Int     @db.NotNull
   user      User    @relation(fields: [matricula], references: [matricula])
   edital    Edital  @relation(fields: [id_edital], references: [id])
 

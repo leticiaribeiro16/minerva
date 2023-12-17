@@ -13,6 +13,9 @@ const inscricaoRouter = require('./routes/inscricao');
 const alunoRouter = require('./routes/aluno');
 
 var app = express();
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'view'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(logger('dev'));
