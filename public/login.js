@@ -14,7 +14,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   .then(response => response.json())
   .then(data => {
     if (data && data.token) {
-      window.location.href = `/${data.acesso}`;
+      window.location.href = `/${data.acesso}/inicio`;
     } else {
       alert('Authentication failed.');
     }

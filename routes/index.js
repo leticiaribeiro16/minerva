@@ -11,7 +11,7 @@ router.get('/login', function(req, res) {
   res.sendFile(path.join(__dirname, '../public', 'login.html'));
 });
 
-router.get('/Aluno', requireLogin, requireRole('Aluno'), function(req, res) {
+router.get('/Aluno/inicio', requireLogin, requireRole('Aluno'), function(req, res) {
   res.sendFile(path.join(__dirname, '../view', 'Aluno.html'));
 });
 module.exports = router;
