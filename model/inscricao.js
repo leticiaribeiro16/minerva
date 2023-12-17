@@ -24,7 +24,7 @@ const Inscricao = {
       const inscricao = await prisma.inscricao.findUnique({
         where: {
           id: id,
-          id_user: matricula
+          matricula: matricula
         },
       });
 
@@ -38,7 +38,7 @@ const Inscricao = {
     try {
       const inscricoes = await prisma.inscricao.findMany({
         where: {
-          id_user: matricula,
+          matricula: matricula,
         },
       });
 
