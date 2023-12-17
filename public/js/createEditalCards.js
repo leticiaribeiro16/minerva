@@ -23,14 +23,14 @@ function createEditalCards(data, container) {
         cardBody.setAttribute('class', 'card-body');
         cardSubtitle.setAttribute('class', 'card-subtitle mb-2 text-body-secondary');
         cardSubtitle.textContent = item.orientador;
-        cardButton.setAttribute('href', '');
+        cardButton.setAttribute('href', 'inscricoes/novainscricao?id=' + item.id);
         cardButton.setAttribute('class', 'btn btn-primary');
-        cardButton.textContent = 'Infoweb';
+        cardButton.textContent = 'Informações';
 
         // Append elements
         cardLink.appendChild(cardIcon);
         cardHeader.appendChild(cardTitle);
-        cardHeader.appendChild(cardLink);
+        // cardHeader.appendChild(cardLink);
         cardBody.appendChild(cardSubtitle);
         cardBody.appendChild(cardButton);
         card.appendChild(cardHeader);
