@@ -160,7 +160,7 @@ db.query('SELECT 1 FROM inscricao LIMIT 1', (err, results) => {
         db.query(`CREATE TABLE inscricao (
             id INT AUTO_INCREMENT PRIMARY KEY,
             id_user VARCHAR(255),
-            aprovado BOOLEAN,
+            aprovado SMALLINT,
             nota FLOAT,
             FOREIGN KEY (id_user) REFERENCES users(matricula)
         );`, (err, results) => {
@@ -185,6 +185,25 @@ db.query('SELECT 1 FROM edital LIMIT 1', (err, results) => {
                 console.error('Error initializing users table:', err);
             } else {
                 console.log('edital table initialized successfully');
+            }
+        });
+        db.query(`INSERT INTO demanda (id_disciplina, orientador, qnt_bolsas, requisitos) VALUES (1, '123456', 1, 'Some requisitos')`, (err, results) => {
+            if(err) {
+                console.error('Error initializing demanda table:', err);
+            } else {
+                console.log('Demanda inserted successfully');
+        
+                // Get the last inserted id
+                const demandaId = results.insertId;
+        
+                // Insert an 'edital' with the created 'demanda'
+                db.query(`INSERT INTO edital (titulo, id_demanda) VALUES ('Edital 1', ${demandaId})`, (err, results) => {
+                    if(err) {
+                        console.error('Error initializing edital table:', err);
+                    } else {
+                        console.log('Edital inserted successfully');
+                    }
+                });
             }
         });
     }

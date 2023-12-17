@@ -2,7 +2,7 @@ const db = require('../db');
 
 const Edital = {
   create: (titulo, id_demanda) => {
-    return new Promise((resolve, reject) => { 
+    return new Promise((resolve, reject) => {
       const query = 'INSERT INTO edital (titulo, id_demanda) VALUES (?, ?)';
       db.query(query, [titulo, id_demanda], (error, results) => {
         if (error) {
@@ -15,7 +15,7 @@ const Edital = {
   },
   getAll: () => {
     return new Promise((resolve, reject) => {
-      const query = 'SELECT * FROM edital';
+      const query = 'SELECT e.id, e.titulo AS tituloedital, u.nome, d.qnt_bolsas, di.nome AS disciplina, di.carga_horaria FROM edital e LEFT JOIN demanda d ON d.id = e.id_demanda LEFT JOIN disciplina di ON di.id = d.id_disciplina left join users u on u.matricula = d.orientador';
       db.query(query, (error, results) => {
         if (error) {
           reject(error);

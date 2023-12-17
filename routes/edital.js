@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var editalController = require('../controller/editalController');
-const { requireAuth, requireRole } = require('../middleware/authMiddleware');
+const { requireLogin, requireRole } = require('../middleware/authMiddleware');
 
-router.use(requireAuth,requireRole('Professor'));
+router.get('/', editalController.getAllEditais);
+router.use(requireLogin, requireRole('Professor'));
 
 router.post('/', editalController.createEdital);
 router.get('/:id', editalController.getEdital);
-router.get('/', editalController.getAllEditais);
 router.put('/:id', editalController.updateEdital);
 router.delete('/:id', editalController.deleteEdital);
 
