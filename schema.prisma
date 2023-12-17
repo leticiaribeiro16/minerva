@@ -17,6 +17,8 @@ model User {
   comissao  Boolean
   inscricao Inscricao[]
   demandas  Demanda[]
+
+  @@map("users")
 }
 
 model Demanda {
