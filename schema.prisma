@@ -8,15 +8,15 @@ generator client {
 }
 
 model User {
-  id        Int         @id @default(autoincrement())
+  matricula String      @id
   nome      String
   email     String      @unique
-  matricula String      @unique
   role      String
   suaptoken String
   apptoken  String
   comissao  Boolean
   inscricao Inscricao[]
+  demandas  Demanda[]
 }
 
 model Demanda {
@@ -26,19 +26,21 @@ model Demanda {
   qnt_bolsas    Int
   requisitos    String
   disciplina    Disciplina @relation(fields: [id_disciplina], references: [id])
+  user          User @relation(fields: [orientador], references: [matricula])
   edital        Edital[]
 }
 
 model Disciplina {
-  id       Int       @id @default(autoincrement())
-  titulo   String
-  demandas Demanda[]
+  id            Int       @id @default(autoincrement())
+  nome          String
+  carga_horaria Int
+  demandas      Demanda[]
 }
 
 model Edital {
   id         Int        @id @default(autoincrement())
-  id_demanda Int
   titulo     String
+  id_demanda Int
   demanda    Demanda   @relation(fields: [id_demanda], references: [id])
   inscricoes Inscricao[]
 }

@@ -40,13 +40,39 @@ const Inscricao = {
         where: {
           matricula: matricula,
         },
+        select: {
+          id_edital: true,
+          matricula: true,
+          aprovado: true,
+          edital: {
+            select: {
+              id: true,
+              titulo: true,
+              demanda: {
+                select: {
+                  qnt_bolsas: true,
+                  disciplina: {
+                    select: {
+                      nome: true,
+                      carga_horaria: true,
+                    }
+                  },
+                  user: {
+                    select: {
+                      nome: true,
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       });
 
       return inscricoes;
     } catch (error) {
       throw error;
     }
-  },
-};
-
+  }
+}
 module.exports = Inscricao;
