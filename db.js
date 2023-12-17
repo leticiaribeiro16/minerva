@@ -61,14 +61,14 @@ db.query('SELECT 1 FROM users LIMIT 1', (err, results) => {
             if (err) {
                 console.error('Error initializing users table:', err);
             } else {
-                console.log('User inserted successfully');
+                console.log('Mock Aluno user inserted successfully');
             }
         });
         db.query(`INSERT INTO users (matricula, nome, email, role, comissao, suaptoken, apptoken) VALUES ('20201041110005', 'Leticia Ribeiro', 'ribeiro.l@academico.ifrn.edu.br', 'Aluno', '0', 'token', '')`, (err, results) => {
             if (err) {
                 console.error('Error initializing users table:', err);
             } else {
-                console.log('User inserted successfully');
+                console.log('Mock Professor user inserted successfully');
             }
         });
     }
@@ -93,7 +93,7 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
             if(err) {
                 console.error('Error initializing disciplina table:', err);
             } else {
-                console.log('Disciplina table initialized successfully');
+                console.log('Disciplina Matemática inserted successfully');
             }
         });
 
@@ -101,7 +101,7 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
             if(err) {
                 console.error('Error initializing disciplina table:', err);
             } else {
-                console.log('Disciplina table initialized successfully');
+                console.log('Disciplina Física inserted successfully');
             }
         });
 
@@ -109,7 +109,7 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
             if(err) {
                 console.error('Error initializing disciplina table:', err);
             } else {
-                console.log('Disciplina table initialized successfully');
+                console.log('Disciplina Química inserted successfully');
             }
         });
 
@@ -117,7 +117,7 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
             if(err) {
                 console.error('Error initializing disciplina table:', err);
             } else {
-                console.log('Disciplina table initialized successfully');
+                console.log('Disciplina Biologia inserted successfully');
             }
         });
 
@@ -125,11 +125,14 @@ db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
             if(err) {
                 console.error('Error initializing disciplina table:', err);
             } else {
+                console.log('Disciplina Ciência da Computação inserted successfully');
+            }
+        });
+                console.error('Error initializing disciplina table:', err);
+            } else {
                 console.log('Disciplina table initialized successfully');
             }
         });
-    }
-});
 
 db.query('SELECT 1 FROM demanda LIMIT 1', (err, results) => {
     if (err) {
