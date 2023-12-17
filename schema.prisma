@@ -36,17 +36,20 @@ model Disciplina {
 }
 
 model Edital {
-  id         Int     @id @default(autoincrement())
+  id         Int        @id @default(autoincrement())
   id_demanda Int
   titulo     String
-  demanda    Demanda @relation(fields: [id_demanda], references: [id])
+  demanda    Demanda   @relation(fields: [id_demanda], references: [id])
+  inscricoes Inscricao[]
 }
 
 model Inscricao {
-  id_edital Int     @id
-  matricula   String  @id
+  id_edital Int
+  matricula String
   aprovado  Int
   nota      Float
   user      User    @relation(fields: [matricula], references: [matricula])
   edital    Edital  @relation(fields: [id_edital], references: [id])
+
+  @@id([id_edital, matricula])
 }
