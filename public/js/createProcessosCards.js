@@ -24,7 +24,7 @@ function createProcessosCards(data, container, filter) {
             cardBody.setAttribute('class', 'card-body');
             cardSubtitle.setAttribute('class', 'card-subtitle mb-2 text-body-secondary');
             cardSubtitle.textContent = item.edital.demanda.user.nome;
-            cardButton.setAttribute('href', '');
+            cardButton.setAttribute('href', 'inscricoes/' + item.edital.id);
             cardButton.setAttribute('class', 'btn btn-primary');
             let statusText;
             let buttonClass;
@@ -48,7 +48,7 @@ function createProcessosCards(data, container, filter) {
             cardButton.textContent = statusText;
             cardButton.setAttribute('class', buttonClass);
             // Append elements
-            cardLink.appendChild(cardIcon);
+            // cardLink.appendChild(cardIcon);
             cardHeader.appendChild(cardTitle);
             cardHeader.appendChild(cardLink);
             cardBody.appendChild(cardSubtitle);

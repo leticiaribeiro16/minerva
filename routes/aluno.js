@@ -1,4 +1,6 @@
 const Edital = require('../model/edital');
+const Inscricao = require('../model/inscricao');
+const authService = require('../service/authService');
 
 const path = require('path');
 const express = require('express');
@@ -22,10 +24,15 @@ router.get('/inscricoes/novainscricao', async function (req, res) {
     res.render('telasAlunos/confirmaInscricao', { id: id, edital: edital });
 });
 router.get('/inscricoes/:id', async function (req, res) {
-    const id = req.params.id;
-    const edital = await Edital.getById(id);
-    console.log(edital);
-    res.render('telasAlunos/alunoDetalha', { id: id, edital: edital });
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id)) {
+        return res.status(400).send({ error: 'ID must be an integer' });
+    }
+    const token = req.session.token;
+    const decodedToken = authService.decodeToken(token);
+    const matricula = decodedToken.username;
+    const inscricao = await Inscricao.getById(id,matricula);
+    res.render('telasAlunos/alunoDetalha', { id: id, edital: inscricao });
 });
 
 module.exports = router;
