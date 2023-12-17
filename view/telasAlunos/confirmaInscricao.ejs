@@ -61,24 +61,25 @@
     <span class="badge rounded-pill text-bg-dark">Quantidade de Bolsas: <%= edital.qnt_bolsas %></span>
     <span class="badge rounded-pill text-bg-dark">Carga Horária: <%= edital.carga_horaria %> horas</span>
 
-    <form action="">
+    <form id="inscricaoForm" action="">
+      <input type="hidden" name="id_edital" value="<%= edital.id %>">
 
       <h3>Turno <span>*inverso ao horário de aula</span></h3>
-      <input type="checkbox" name="manha">
+      <input type="radio" name="turno" value="manha" required>
       <label for="">Manhã</label>
 
-      <input type="checkbox" name="manha">
+      <input type="radio" name="turno" value="tarde">
       <label for="">Tarde</label>
 
-      <input type="checkbox" name="manha">
+      <input type="radio" name="turno" value="noite">
       <label for="">Noite</label>
 
-      <input type="checkbox" name="manha">
+      <input type="radio" name="turno" value="flexivel">
       <label for="">Flexível</label>
 
       <button type="button" class="btn btn-outline-primary" onclick="window.location.href='/Aluno/inicio'">CANCELAR</button>
-      <button type="button" class="btn btn-primary">INSCREVER-SE</button>
-
+      <button type="button" class="btn btn-primary" id="submitBtn">INSCREVER-SE</button>
+    </form>
     </form>
 
   </div>
@@ -94,6 +95,7 @@
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"></script>
   <script src="/js/header.js"></script>
+  <script src="/js/envioInscricao.js"></script>
 </body>
 
 </html>

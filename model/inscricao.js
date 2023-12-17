@@ -4,6 +4,7 @@ const TurnoValues = {
   1: 'MANHA',
   2: 'TARDE',
   3: 'NOITE',
+  4: 'FLEXIVEL'
 };
 
 const Inscricao = {
@@ -22,7 +23,6 @@ const Inscricao = {
       throw error;
     }
   },
-
   getById: async (id, matricula) => {
     try {
       const inscricao = await prisma.inscricao.findUnique({

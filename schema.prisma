@@ -55,6 +55,6 @@ model Inscricao {
   turno     Int
   user      User    @relation(fields: [matricula], references: [matricula])
   edital    Edital  @relation(fields: [id_edital], references: [id])
-
+  
   @@id([id_edital, matricula])
 }
