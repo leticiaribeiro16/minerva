@@ -3,17 +3,17 @@ const authService = require('../service/authService');
 
 exports.authenticateUser = async (req, res, next) => {
     try {
-        if (!req.body.username || !req.body.password){
+        if (!req.body.username || !req.body.password) {
             return res.status(400).json({ message: 'Username and password are required.' });
         }
-        const suapToken ='token'// await authService.login(req.body.username, req.body.password);
+        const suapToken = 'token' // await authService.login(req.body.username, req.body.password);
 
         if (suapToken) {
             let apptoken;
             const user = await User.findByMatricula(req.body.username);
             let acesso;
             if (user) {
-                apptoken = authService.createToken({ username: req.body.username, role: user.role });
+                apptoken = authService.createToken({ username: req.body.username, role: user.role, nome: user.nome });
                 acesso = user.role;
                 await User.update(
                     req.body.username,
@@ -22,14 +22,17 @@ exports.authenticateUser = async (req, res, next) => {
                 );
             } else {
                 const data = await authService.getData(suapToken);
-                apptoken = authService.createToken({ username: req.body.username, role: data.tipo_vinculo });
+                apptoken = authService.createToken({ username: req.body.username, role: data.tipo_vinculo, nome: data.nome });
                 acesso = data.tipo_vinculo;
+                console.log(data.url_foto_150x200);
                 await User.create(data.nome_usual,
                     data.email,
                     data.matricula,
                     data.tipo_vinculo,
                     suapToken,
-                    apptoken);
+                    apptoken,
+                    data.url_foto_150x200,
+                    data.vinculo.curso,);
             }
             req.session.token = apptoken;
             res.status(200).json({ message: 'User authenticated and updated successfully!', token: apptoken, acesso: acesso });
@@ -43,12 +46,12 @@ exports.authenticateUser = async (req, res, next) => {
 };
 exports.updateUserComissao = async (req, res, next) => {
     try {
-        if(!req.body.matricula){
-            return res.status(400).json({message: 'Matricula required'});
+        if (!req.body.matricula) {
+            return res.status(400).json({ message: 'Matricula required' });
         }
 
         const user = await User.findByMatricula(req.body.matricula);
-        if (user){
+        if (user) {
             if (typeof req.body.comissao !== 'boolean') {
                 return res.status(400).json({ message: 'Bad Request: comissao must be a boolean.' });
             }
@@ -57,7 +60,7 @@ exports.updateUserComissao = async (req, res, next) => {
                 req.body.comissao
             );
             res.status(200).json({ message: 'User commission updated successfully!' });
-        }else {
+        } else {
             res.status(404).json({ message: 'User does not exist!' });
         }
     } catch (error) {

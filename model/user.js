@@ -1,10 +1,10 @@
 const db = require('../db');
 
 const User = {
-  create: (nome, email, matricula, role, soaptoken, apptoken) => {
+  create: (nome, email, matricula, role, soaptoken, apptoken, urlfoto, curso) => {
     return new Promise((resolve, reject) => {
-      const query = 'INSERT INTO users (nome, email, matricula, role, suaptoken, apptoken) VALUES (?, ?, ?, ?, ?, ?)';
-      db.query(query, [nome, email, matricula, role, soaptoken, apptoken], (error, results) => {
+      const query = 'INSERT INTO users (nome, email, matricula, role, suaptoken, apptoken, urlfoto, curso) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+      db.query(query, [nome, email, matricula, role, soaptoken, apptoken, urlfoto, curso], (error, results) => {
         if (error) {
           reject(error);
         } else {

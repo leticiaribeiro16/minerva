@@ -4,7 +4,6 @@ const secret = 'senhamuitoforte';
 
 const authService = {
   login: async (username, password) => {
-    //return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjIwMjAxMDQxMTEwMDA1Iiwicm9sZSI6IkFsdW5vIiwiaWF0IjoxNzAxMjE5MTM3LCJleHAiOjE3MDEyMjI3Mzd9.xoLkyQ6nmOIFL2NzIA-8jmPpNiYQVEZXo7erzP-9TNM";
     try {
       const response = await axios.post('https://suap.ifrn.edu.br/api/v2/autenticacao/token/', {
         username: username,
@@ -34,10 +33,11 @@ const authService = {
   createToken: (user) => {
     const payload = {
       username: user.username,
-      role: user.role
+      role: user.role,
+      nome: user.nome
     };
     const options = {
-      expiresIn: '1h'
+      expiresIn: '6h'
     };
     return jwt.sign(payload, secret, options);
   },
@@ -46,7 +46,8 @@ const authService = {
       const decoded = jwt.verify(token, secret);
       return {
         username: decoded.username,
-        role: decoded.role
+        role: decoded.role,
+        nome: decoded.nome,
       };
     } catch (error) {
       throw error;

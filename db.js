@@ -49,7 +49,9 @@ db.query('SELECT 1 FROM users LIMIT 1', (err, results) => {
             role varchar(255) NOT NULL,
             comissao tinyint(1) DEFAULT 0,
             suaptoken varchar(255),
-            apptoken varchar(255)
+            apptoken varchar(255),
+            urlfoto varchar(255),
+            curso varchar(255)
             );`, (err, results) => {
             if (err) {
                 console.error('Error initializing users table:', err);
@@ -64,13 +66,13 @@ db.query('SELECT 1 FROM users LIMIT 1', (err, results) => {
                 console.log('Mock Aluno user inserted successfully');
             }
         });
-        db.query(`INSERT INTO users (matricula, nome, email, role, comissao, suaptoken, apptoken) VALUES ('20201041110005', 'Leticia Ribeiro', 'ribeiro.l@academico.ifrn.edu.br', 'Aluno', '0', 'token', '')`, (err, results) => {
-            if (err) {
-                console.error('Error initializing users table:', err);
-            } else {
-                console.log('Mock Professor user inserted successfully');
-            }
-        });
+        // db.query(`INSERT INTO users (matricula, nome, email, role, comissao, suaptoken, apptoken) VALUES ('20201041110005', 'Leticia Ribeiro', 'ribeiro.l@academico.ifrn.edu.br', 'Aluno', '0', 'token', '')`, (err, results) => {
+        //     if (err) {
+        //         console.error('Error initializing users table:', err);
+        //     } else {
+        //         console.log('Mock Professor user inserted successfully');
+        //     }
+        // });
     }
 });
 db.query('SELECT 1 FROM disciplina LIMIT 1', (err, results) => {
@@ -217,13 +219,13 @@ db.query('SELECT 1 FROM inscricao LIMIT 1', (err, results) => {
                 console.log('Edital inserted successfully');
             }
         });
-        db.query(`INSERT INTO inscricao (id_edital, matricula, turno) VALUES (1,'20201041110005', 1)`, (err, results) => {
-            if (err) {
-                console.error('Error inserting into inscricao table:', err);
-            } else {
-                console.log('Inscricao inserted successfully');
-            }
-        });
+        // db.query(`INSERT INTO inscricao (id_edital, matricula, turno) VALUES (1,'20201041110005', 1)`, (err, results) => {
+        //     if (err) {
+        //         console.error('Error inserting into inscricao table:', err);
+        //     } else {
+        //         console.log('Inscricao inserted successfully');
+        //     }
+        // });
     }
 });
 module.exports = db;

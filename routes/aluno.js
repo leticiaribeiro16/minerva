@@ -1,6 +1,8 @@
 const Edital = require('../model/edital');
 const Inscricao = require('../model/inscricao');
 const authService = require('../service/authService');
+const axios = require('axios');
+const User = require('../model/user');
 
 const path = require('path');
 const express = require('express');
@@ -33,6 +35,25 @@ router.get('/inscricoes/:id', async function (req, res) {
     const matricula = decodedToken.username;
     const inscricao = await Inscricao.getById(id,matricula);
     res.render('telasAlunos/alunoDetalha', { id: id, edital: inscricao });
+});
+
+router.get('/perfil', async function (req, res) {
+    const token = req.session.token;
+    const decodedToken = authService.decodeToken(token);
+    const username = decodedToken.username;
+    const user = await User.findByMatricula(username);
+
+    const response = await axios.get('https://suap.ifrn.edu.br'+user.urlfoto, {
+        responseType: 'arraybuffer',
+        headers: {
+            'Accept': '*/*',
+            'Accept-Encoding': 'gzip, deflate, br'
+        }
+    });
+
+    const imageBase64 = Buffer.from(response.data, 'binary').toString('base64');
+
+    res.render('telasAlunos/minhasInformacoes',{ imageBase64, user });
 });
 
 module.exports = router;
